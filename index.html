@@ -286,7 +286,7 @@ var PR = 11, PH = 42, EYE = 34;
 var SPIN_T = 0.62, DT = 1 / 60;
 var COY = 0.1, BUF = 0.14, VY_MAX = 1500;
 var NEAR = 14;
-var CAM_BACK = 163, CAM_H = 106, CAM_LOOK = 122, CAM_LOOK_H = 10;
+var CAM_BACK = 152, CAM_H = 92, CAM_LOOK = 132, CAM_LOOK_H = 16;
 var STORE = 'wangjeonJump3D.v1';
 
 function $(id) { return document.getElementById(id); }
@@ -1097,11 +1097,11 @@ function drawSea() {
     var by = polyBoxY(poly);
     var g = ctx.createLinearGradient(0, by[0], 0, by[1] + 1);
     var pulse = 0.5 + 0.5 * Math.sin(round.effT * 2.2);
-    g.addColorStop(0, pulse > 0.5 ? '#ff5a6e' : '#ef3b55');
-    g.addColorStop(0.10, '#c21a32');
-    g.addColorStop(0.34, '#7d0c1d');
-    g.addColorStop(0.70, '#480612');
-    g.addColorStop(1, '#28040b');
+    g.addColorStop(0, pulse > 0.5 ? '#ff6a7c' : '#f0475f');
+    g.addColorStop(0.07, '#a5142c');
+    g.addColorStop(0.26, '#6d0a19');
+    g.addColorStop(0.62, '#3d0611');
+    g.addColorStop(1, '#25030a');
     polyPath(poly);
     ctx.fillStyle = g;
     ctx.fill();
@@ -1636,6 +1636,18 @@ function drawOverlay() {
   }
 }
 
+function drawVignette() {
+  if (!vignette) {
+    vignette = ctx.createRadialGradient(cssW * 0.5, cssH * 0.46, Math.min(cssW, cssH) * 0.32,
+                                        cssW * 0.5, cssH * 0.5, Math.max(cssW, cssH) * 0.78);
+    vignette.addColorStop(0, 'rgba(60,10,40,0)');
+    vignette.addColorStop(1, 'rgba(46,6,30,.26)');
+  }
+  ctx.fillStyle = vignette;
+  ctx.fillRect(0, 0, cssW, cssH);
+}
+var vignette = null;
+
 function render() {
   if (!ctx) { return; }
   updateCam();
@@ -1692,6 +1704,7 @@ function render() {
   }
   drawParticles();
   ctx.restore();
+  drawVignette();
   drawOverlay();
 }
 
@@ -1910,6 +1923,7 @@ function resize() {
   cssW = Math.max(180, r.width || 360);
   cssH = Math.max(180, r.height || 460);
   dpr = Math.min(window.devicePixelRatio || 1, 2);
+  vignette = null;
   cv.width = Math.round(cssW * dpr);
   cv.height = Math.round(cssH * dpr);
   if (L) { render(); }
