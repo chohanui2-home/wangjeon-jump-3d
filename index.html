@@ -286,7 +286,7 @@ var PR = 11, PH = 42, EYE = 34;
 var SPIN_T = 0.62, DT = 1 / 60;
 var COY = 0.1, BUF = 0.14, VY_MAX = 1500;
 var NEAR = 14;
-var CAM_BACK = 185, CAM_H = 125, CAM_LOOK = 150, CAM_LOOK_H = 0;
+var CAM_BACK = 163, CAM_H = 106, CAM_LOOK = 122, CAM_LOOK_H = 10;
 var STORE = 'wangjeonJump3D.v1';
 
 function $(id) { return document.getElementById(id); }
@@ -892,7 +892,7 @@ function updateCam() {
   } else {
     camPos = { x: P.x + sya * CAM_BACK, y: P.y + CAM_H, z: P.z + cya * CAM_BACK };
     look = { x: P.x + sya * CAM_LOOK, y: P.y + CAM_LOOK_H, z: P.z - cya * CAM_LOOK };
-    focal = Math.min(cssW, cssH) * 0.95;
+    focal = Math.min(cssW, cssH) * 0.88;
   }
   if (camPos.y < 26) { camPos.y = 26; }
   var dx = look.x - camPos.x, dy = look.y - camPos.y, dz = look.z - camPos.z;
@@ -1032,8 +1032,8 @@ function drawBox(x0, x1, y0, y1, z0, z1, pal, alpha) {
 }
 
 var PAL_PLAT = {
-  top1: '#f6f1ff', top2: '#cec0f7', front: '#c0b0ef', back: '#a491e4',
-  side: '#b3a1ea', side2: '#a18ce3', bottom: '#7f6bc8', edge: 'rgba(94,74,168,.38)', rim: '#63e0bd'
+  top1: '#f8f4ff', top2: '#c6b4f5', front: '#ab95ea', back: '#8b72da',
+  side: '#9d87e5', side2: '#8f77de', bottom: '#6a56b6', edge: 'rgba(72,52,140,.5)', rim: '#5fe0bb'
 };
 var PAL_MOVER = {
   top1: '#fff6d8', top2: '#ffd45e', front: '#f7c33f', back: '#e0a92c',
@@ -1097,10 +1097,11 @@ function drawSea() {
     var by = polyBoxY(poly);
     var g = ctx.createLinearGradient(0, by[0], 0, by[1] + 1);
     var pulse = 0.5 + 0.5 * Math.sin(round.effT * 2.2);
-    g.addColorStop(0, pulse > 0.5 ? '#ff4a62' : '#ee2f4c');
-    g.addColorStop(0.22, '#c8162f');
-    g.addColorStop(0.6, '#820b1d');
-    g.addColorStop(1, '#3a0510');
+    g.addColorStop(0, pulse > 0.5 ? '#ff5a6e' : '#ef3b55');
+    g.addColorStop(0.10, '#c21a32');
+    g.addColorStop(0.34, '#7d0c1d');
+    g.addColorStop(0.70, '#480612');
+    g.addColorStop(1, '#28040b');
     polyPath(poly);
     ctx.fillStyle = g;
     ctx.fill();
