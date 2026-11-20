@@ -286,7 +286,7 @@ var PR = 11, PH = 42, EYE = 34;
 var SPIN_T = 0.62, DT = 1 / 60;
 var COY = 0.1, BUF = 0.14, VY_MAX = 1500;
 var NEAR = 14;
-var CAM_BACK = 138, CAM_H = 96, CAM_LOOK = 92, CAM_LOOK_H = 2;
+var CAM_BACK = 185, CAM_H = 125, CAM_LOOK = 150, CAM_LOOK_H = 0;
 var STORE = 'wangjeonJump3D.v1';
 
 function $(id) { return document.getElementById(id); }
@@ -333,7 +333,7 @@ function mv(x, z, y, w, d, amp, period, axis, phase) {
            amp: amp, period: period, axis: axis || 'x', phase: phase || 0, dx: 0, dz: 0 };
 }
 function wl(x, z, y, w, d) {
-  return { kind: 'wall', x: x, z: z, y: y, w: w || 96, d: d || 18, h: 230, broken: false, hit: 0, ph: 0 };
+  return { kind: 'wall', x: x, z: z, y: y, w: w || 118, d: d || 18, h: 230, broken: false, hit: 0, ph: 0 };
 }
 function bm(x, z, y, h, blink, period, phase, duty) {
   return { kind: 'beam', x: x, z: z, y: y, w: 18, d: 18, h: h || 68,
@@ -1097,10 +1097,10 @@ function drawSea() {
     var by = polyBoxY(poly);
     var g = ctx.createLinearGradient(0, by[0], 0, by[1] + 1);
     var pulse = 0.5 + 0.5 * Math.sin(round.effT * 2.2);
-    g.addColorStop(0, pulse > 0.5 ? '#ff4059' : '#f23050');
-    g.addColorStop(0.18, '#e01f38');
-    g.addColorStop(0.55, '#a81026');
-    g.addColorStop(1, '#4d0714');
+    g.addColorStop(0, pulse > 0.5 ? '#ff4a62' : '#ee2f4c');
+    g.addColorStop(0.22, '#c8162f');
+    g.addColorStop(0.6, '#820b1d');
+    g.addColorStop(1, '#3a0510');
     polyPath(poly);
     ctx.fillStyle = g;
     ctx.fill();
@@ -1303,10 +1303,10 @@ function drawCoin(c) {
   if (v.z < NEAR + 4) { return; }
   var p = projV(v);
   var u = focal / v.z;
-  var r = Math.max(3, 11 * u);
+  var r = Math.max(3, 8.5 * u);
   ctx.save();
   ctx.shadowColor = 'rgba(255,200,60,.8)';
-  ctx.shadowBlur = 8 * Math.min(2, u * 3);
+  ctx.shadowBlur = 6 * Math.min(2, u * 3);
   var g = ctx.createLinearGradient(p.x, p.y - r, p.x, p.y + r);
   g.addColorStop(0, '#fff2bd');
   g.addColorStop(1, '#ffbe1e');
