@@ -1929,8 +1929,16 @@ function loop(ts) {
   }
   render();
   updateHud();
+  frameN++;
+  if (frameN % 10 === 1) {
+    /* the stage can still be settling when the first resize runs (a tall
+       tablet, a phone whose URL bar slides away), so follow it */
+    var r = $('stage').getBoundingClientRect();
+    if (Math.abs(r.width - cssW) > 1.5 || Math.abs(r.height - cssH) > 1.5) { resize(); }
+  }
   if (requestAnimationFrame) { requestAnimationFrame(loop); }
 }
+var frameN = 0;
 
 function resize() {
   if (!cv) { return; }
@@ -2195,6 +2203,8 @@ function init() {
   setupManifest();
   resize();
   startLevel(clamp(save.lastLevel, 1, META.length));
+  setTimeout(resize, 60);
+  setTimeout(resize, 260);
   if (typeof requestAnimationFrame === 'function' && !window.__noRAF) { requestAnimationFrame(loop); }
 }
 
