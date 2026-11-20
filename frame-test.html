@@ -14,6 +14,7 @@ var w = parseInt(q.get('w'), 10) || 390;
 var h = parseInt(q.get('h'), 10) || 844;
 var f = document.getElementById('f');
 f.width = w; f.height = h;
+f.src = './index.html?v=' + Date.now();
 var s = Math.min(1, (innerHeight - 34) / h, (innerWidth - 20) / w);
 document.getElementById('wrap').style.transform = 'scale(' + s + ')';
 document.getElementById('lbl').textContent = w + ' x ' + h + '  (scale ' + s.toFixed(3) + ')';
