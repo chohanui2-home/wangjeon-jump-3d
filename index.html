@@ -1015,6 +1015,21 @@ function drawBox(x0, x1, y0, y1, z0, z1, pal, alpha) {
     }
     ctx.fill();
     if (pal.edge) { ctx.strokeStyle = pal.edge; ctx.lineWidth = 1.2; ctx.stroke(); }
+    if (order[k] === F_TOP) {
+      /* a soft inset outline keeps a big top face from looking blank */
+      var cxp = 0, cyp = 0, ii;
+      for (ii = 0; ii < poly.length; ii++) { cxp += poly[ii].x; cyp += poly[ii].y; }
+      cxp /= poly.length; cyp /= poly.length;
+      ctx.beginPath();
+      for (ii = 0; ii < poly.length; ii++) {
+        var ix = cxp + (poly[ii].x - cxp) * 0.78, iy = cyp + (poly[ii].y - cyp) * 0.78;
+        if (ii === 0) { ctx.moveTo(ix, iy); } else { ctx.lineTo(ix, iy); }
+      }
+      ctx.closePath();
+      ctx.strokeStyle = 'rgba(255,255,255,.42)';
+      ctx.lineWidth = 1.4;
+      ctx.stroke();
+    }
     if (order[k] === F_TOP && pal.rim) {
       /* mint rim along the edge nearest the camera */
       var bestI = 0, bestY = -1e9;
